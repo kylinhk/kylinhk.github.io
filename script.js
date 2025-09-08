@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeScrollEffects();
     initializeFormHandling();
     initializeAnimations();
+    initializeFormSecurity();
 });
 
 // ===== 导航栏功能 =====
@@ -160,9 +161,10 @@ function initializeFormHandling() {
 // ===== Formspree表单提交 =====
 function submitToFormspree(data) {
     // 在这里替换为你的Formspree endpoint URL
-    // 注册 https://formspree.io 获取你的表单endpoint
+    // 注册 https://formspree.io 用邮箱 876762422@qq.com 获取你的表单endpoint
     const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID'; // 需要替换
     
+    const currentTime = new Date();
     const formData = {
         name: data.name,
         email: data.email,
@@ -170,7 +172,11 @@ function submitToFormspree(data) {
         service: data.service,
         message: data.message || '无其他需求说明',
         _subject: `麒麟科技网站咨询 - ${data.service}`,
-        _replyto: data.email
+        _replyto: data.email,
+        _timestamp: currentTime.toISOString(),
+        _source: 'kylin-website',
+        _userAgent: navigator.userAgent.substring(0, 100), // 限制长度
+        _referrer: document.referrer || 'direct'
     };
     
     return fetch(FORMSPREE_URL, {
@@ -208,13 +214,127 @@ function sendToEmail(data) {
     return Promise.resolve();
 }
 
+// ===== 邮箱显示功能 =====
+function showEmail(event) {
+    event.preventDefault();
+    
+    // 人机验证：简单的数学题
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    const answer = prompt(`为防止机器人，请回答：${num1} + ${num2} = ?`);
+    
+    if (parseInt(answer) === num1 + num2) {
+        // 显示邮箱地址
+        const emailLink = document.getElementById('emailLink');
+        const hiddenEmail = document.getElementById('hiddenEmail');
+        
+        if (emailLink && hiddenEmail) {
+            emailLink.style.display = 'none';
+            hiddenEmail.style.display = 'block';
+            hiddenEmail.innerHTML = '<a href="mailto:876762422@qq.com">876762422@qq.com</a>';
+        }
+        
+        // 更新页脚的邮箱显示
+        const footerEmailSpan = document.querySelector('.footer-section span[onclick="showEmail(event)"]');
+        if (footerEmailSpan) {
+            footerEmailSpan.innerHTML = '876762422@qq.com';
+            footerEmailSpan.style.cursor = 'default';
+            footerEmailSpan.onclick = null;
+        }
+    } else {
+        alert('验证失败，请重试或直接拨打电话联系我们。');
+    }
+}
+
+// ===== 表单安全初始化 =====
+function initializeFormSecurity() {
+    // 设置时间戳
+    const timestampField = document.getElementById('timestamp');
+    if (timestampField) {
+        timestampField.value = Date.now();
+    }
+    
+    // 记录表单加载时间
+    window.formLoadTime = Date.now();
+    
+    // 检测快速提交（可能是机器人）
+    let submitAttempts = 0;
+    const form = document.getElementById('consultationForm');
+    
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const currentTime = Date.now();
+            const timeSinceLoad = currentTime - window.formLoadTime;
+            
+            // 如果5秒内提交，显示验证码
+            if (timeSinceLoad < 5000 || submitAttempts >= 2) {
+                e.preventDefault();
+                showCaptcha();
+                return false;
+            }
+            
+            submitAttempts++;
+        });
+    }
+}
+
+// ===== 显示验证码 =====
+function showCaptcha() {
+    const captchaGroup = document.getElementById('captchaGroup');
+    const captchaQuestion = document.getElementById('captchaQuestion');
+    
+    if (captchaGroup && captchaQuestion) {
+        const num1 = Math.floor(Math.random() * 10) + 1;
+        const num2 = Math.floor(Math.random() * 10) + 1;
+        window.captchaAnswer = num1 + num2;
+        
+        captchaQuestion.textContent = `${num1} + ${num2} = ?`;
+        captchaGroup.style.display = 'block';
+        
+        showMessage('请完成验证后再次提交', 'error');
+    }
+}
+
+// ===== 验证验证码 =====
+function validateCaptcha() {
+    const captchaGroup = document.getElementById('captchaGroup');
+    const captchaAnswer = document.getElementById('captchaAnswer');
+    
+    if (captchaGroup && captchaGroup.style.display !== 'none') {
+        const userAnswer = parseInt(captchaAnswer.value);
+        if (userAnswer !== window.captchaAnswer) {
+            showErrorMessage('验证码错误，请重新输入');
+            return false;
+        }
+    }
+    return true;
+}
+
 // ===== 表单验证 =====
 function validateForm(data) {
     const errors = [];
 
+    // 检查验证码
+    if (!validateCaptcha()) {
+        return false;
+    }
+
+    // 检查防机器人字段
+    const gotchaField = document.querySelector('input[name="_gotcha"]');
+    if (gotchaField && gotchaField.value !== '') {
+        // 机器人填写了隐藏字段
+        showErrorMessage('提交失败，请稍后重试');
+        return false;
+    }
+
     // 验证姓名
     if (!data.name || data.name.trim().length < 2) {
         errors.push('请输入有效的姓名');
+    }
+    
+    // 检查姓名中是否包含可疑字符
+    if (data.name && /[<>"'&]/.test(data.name)) {
+        errors.push('姓名中包含非法字符');
     }
 
     // 验证邮箱
@@ -234,6 +354,11 @@ function validateForm(data) {
         if (!phoneRegex.test(data.phone)) {
             errors.push('请输入有效的电话号码');
         }
+    }
+    
+    // 检查消息长度
+    if (data.message && data.message.length > 1000) {
+        errors.push('详细需求说明过长，请控制在1000字符内');
     }
 
     if (errors.length > 0) {

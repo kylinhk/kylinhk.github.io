@@ -7,7 +7,7 @@
 
 ### 步骤1：注册Formspree
 1. 访问 https://formspree.io
-2. 点击 "Get Started" 注册账户
+2. 使用邮箱 **876762422@qq.com** 注册账户
 3. 创建新表单项目
 
 ### 步骤2：获取表单地址
@@ -16,6 +16,7 @@
    ```
    https://formspree.io/f/xpznvlqr
    ```
+3. 表单提交将自动发送到 876762422@qq.com
 
 ### 步骤3：更新代码
 在 `script.js` 文件中找到这一行：

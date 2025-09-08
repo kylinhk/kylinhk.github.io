@@ -502,6 +502,43 @@ body {
     box-shadow: 0 8px 25px rgba(211, 47, 47, 0.3);
 }
 
+/* ===== 验证码样式 ===== */
+.captcha-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border: 2px solid #e9ecef;
+}
+
+.captcha-container span {
+    font-weight: 500;
+    color: #333;
+}
+
+#captchaQuestion {
+    font-weight: bold;
+    color: #d32f2f;
+    min-width: 80px;
+}
+
+#captchaAnswer {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#captchaAnswer:focus {
+    border-color: #d32f2f;
+    outline: none;
+}
+
 /* ===== 页脚样式 ===== */
 .footer {
     background: #2c3e50;
