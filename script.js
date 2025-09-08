@@ -139,15 +139,73 @@ function initializeFormHandling() {
             submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> 提交中...';
             submitButton.disabled = true;
 
-            // 模拟表单提交（实际项目中应该发送到服务器）
-            setTimeout(() => {
-                showSuccessMessage();
-                this.reset();
-                submitButton.innerHTML = originalText;
-                submitButton.disabled = false;
-            }, 2000);
+            // 发送到Formspree服务
+            submitToFormspree(data)
+                .then(() => {
+                    showSuccessMessage();
+                    this.reset();
+                })
+                .catch((error) => {
+                    showErrorMessage('提交失败，请稍后重试或直接联系我们：+852 5140 0092');
+                    console.error('表单提交错误:', error);
+                })
+                .finally(() => {
+                    submitButton.innerHTML = originalText;
+                    submitButton.disabled = false;
+                });
         });
     }
+}
+
+// ===== Formspree表单提交 =====
+function submitToFormspree(data) {
+    // 在这里替换为你的Formspree endpoint URL
+    // 注册 https://formspree.io 获取你的表单endpoint
+    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID'; // 需要替换
+    
+    const formData = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone || '未提供',
+        service: data.service,
+        message: data.message || '无其他需求说明',
+        _subject: `麒麟科技网站咨询 - ${data.service}`,
+        _replyto: data.email
+    };
+    
+    return fetch(FORMSPREE_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('网络错误');
+        }
+        return response.json();
+    });
+}
+
+// ===== 备用邮件发送方案 =====
+function sendToEmail(data) {
+    // 创建邮件主题和内容
+    const subject = encodeURIComponent(`麒麟科技咨询 - ${data.service}`);
+    const body = encodeURIComponent(`
+姓名：${data.name}
+邮箱：${data.email}
+电话：${data.phone || '未提供'}
+咨询服务：${data.service}
+详细需求：${data.message || '无其他需求说明'}
+
+提交时间：${new Date().toLocaleString('zh-CN')}
+    `);
+    
+    // 打开默认邮件客户端
+    window.location.href = `mailto:info@kylintech.hk?subject=${subject}&body=${body}`;
+    
+    return Promise.resolve();
 }
 
 // ===== 表单验证 =====
