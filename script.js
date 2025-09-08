@@ -160,9 +160,8 @@ function initializeFormHandling() {
 
 // ===== Formspree表单提交 =====
 function submitToFormspree(data) {
-    // 在这里替换为你的Formspree endpoint URL
-    // 注册 https://formspree.io 用邮箱 876762422@qq.com 获取你的表单endpoint
-    const FORMSPREE_URL = 'https://formspree.io/f/YOUR_FORM_ID'; // 需要替换
+    // 已配置的Formspree endpoint URL - 接收邮箱: 876762422@qq.com
+    const FORMSPREE_URL = 'https://formspree.io/f/mjkejpew';
     
     const currentTime = new Date();
     const formData = {
