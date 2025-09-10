@@ -56,18 +56,20 @@ npm run deploy
 
 ```
 .
+├── .github/
+│   └── workflows/       # GitHub Actions 配置
+├── .gitignore           # Git 忽略文件
+├── .gitmodules          # Git 子模块配置
 ├── _config.yml          # Hexo 主配置文件
 ├── package.json         # 项目依赖
+├── README.md            # 项目说明
+├── LICENSE              # 许可证
 ├── source/              # 源文件目录
 │   ├── _posts/          # 博客文章
-│   ├── index.md         # 首页内容
 │   ├── about.md         # 关于我们
 │   └── services.md      # 服务介绍
-├── themes/              # 主题目录
-│   └── bluelake/        # Bluelake 主题
-│       └── _config.yml  # 主题配置
-└── .github/
-    └── workflows/       # GitHub Actions 配置
+└── themes/              # 主题目录
+    └── bluelake/        # Bluelake 主题
 ```
 
 ## 主要功能
