@@ -25,13 +25,29 @@ jobs:
         git config --global init.defaultBranch master
         git config --global --add safe.directory /github/workspace
         git config --global --add safe.directory /github/workspace/.git
+        git config --global --add safe.directory '*'
         git config --global url."https://github.com/".insteadOf git@github.com:
         git config --global url."https://".insteadOf git://
+        git config --global http.postBuffer 524288000
+        git config --global core.longpaths true
 
     - name: Force Submodule Update 🔧
       run: |
-        git submodule sync --recursive
-        git submodule update --init --recursive --force
+        echo "=== Current Directory Permissions ==="
+        ls -la || echo "List failed"
+        echo "=== Git Status Check ==="
+        git status || echo "Git status failed"
+        echo "=== Submodule Configuration ==="
+        cat .gitmodules || echo "No .gitmodules found"
+        echo "=== Initialize Submodules ==="
+        git submodule deinit --all -f || echo "Deinit failed"
+        git submodule init || echo "Init failed"
+        echo "=== Sync Submodules ==="
+        git submodule sync --recursive || echo "Sync failed"
+        echo "=== Update Submodules ==="
+        git submodule update --init --recursive --force --remote || echo "Update failed"
+        echo "=== Final Submodule Status ==="
+        git submodule status || echo "No submodules"
 
     - name: Setup Node.js 🏗️
       uses: actions/setup-node@v3
