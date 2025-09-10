@@ -1,0 +1,3 @@
+[submodule "themes/bluelake"]
+	path = themes/bluelake
+	url = https://github.com/chaooo/hexo-theme-BlueLake.git
