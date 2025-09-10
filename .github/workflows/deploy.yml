@@ -15,19 +15,19 @@ jobs:
       uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        submodules: recursive
         token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure Git ⚙️
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git config --global init.defaultBranch master
+        git config --global --add safe.directory /github/workspace
 
     - name: Initialize and Update Submodules 🔧
       run: |
         git submodule init
-        git submodule update --recursive --remote
-
-    - name: Configure Git ⚙️
-      run: |
-        git config --global user.name "kylinhk"
-        git config --global user.email "kylinhk@example.com"
-        git config --global init.defaultBranch master
+        git submodule update --init --recursive
 
     - name: Setup Node.js 🏗️
       uses: actions/setup-node@v3
@@ -36,14 +36,21 @@ jobs:
 
     - name: Install Dependencies 📦
       run: |
-        npm install
+        npm install --no-package-lock
         npm install hexo-cli -g
 
     - name: Verify Installation 🔍
       run: |
-        hexo version
-        ls -la themes/
+        echo "=== Git Configuration ==="
+        git config --list | grep user || echo "No user config"
+        echo "=== Hexo Version ==="
+        hexo version || echo "Hexo not found"
+        echo "=== Themes Directory ==="
+        ls -la themes/ || echo "Themes directory not found"
+        echo "=== Bluelake Theme ==="
         ls -la themes/bluelake/ || echo "Bluelake theme not found"
+        echo "=== Submodule Status ==="
+        git submodule status || echo "No submodules"
 
     - name: Generate Static Site 🔧
       run: |
