@@ -18,6 +18,11 @@ jobs:
         submodules: recursive
         token: ${{ secrets.GITHUB_TOKEN }}
 
+    - name: Initialize and Update Submodules 🔧
+      run: |
+        git submodule init
+        git submodule update --recursive --remote
+
     - name: Setup Node.js 🏗️
       uses: actions/setup-node@v3
       with:
