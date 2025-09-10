@@ -11,9 +11,9 @@
 ## 技术栈
 
 - **框架**: Hexo 7.0.0
-- **主题**: 自定义 Kylin 主题
+- **主题**: Bluelake 主题
 - **部署**: GitHub Pages + GitHub Actions
-- **样式**: 响应式 CSS，支持移动端
+- **样式**: 响应式设计，支持亮色/暗色模式
 
 ## 快速开始
 
@@ -64,10 +64,8 @@ npm run deploy
 │   ├── about.md         # 关于我们
 │   └── services.md      # 服务介绍
 ├── themes/              # 主题目录
-│   └── kylin/           # 自定义主题
-│       ├── _config.yml  # 主题配置
-│       ├── layout/      # 布局模板
-│       └── source/      # 主题资源
+│   └── bluelake/        # Bluelake 主题
+│       └── _config.yml  # 主题配置
 └── .github/
     └── workflows/       # GitHub Actions 配置
 ```
@@ -78,6 +76,12 @@ npm run deploy
 - 响应式布局，适配各种设备
 - 现代化的视觉设计
 - 优化的用户体验
+
+### 🎨 Bluelake 主题特色
+- 现代化的蓝色主色调
+- 支持亮色/暗色两种模式
+- 内置丰富的组件和插件支持
+- SEO 友好的结构设计
 
 ### 📝 博客系统
 - 支持 Markdown 写作
