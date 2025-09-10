@@ -131,6 +131,26 @@ company:
   establishment_date: '2024年3月1日'
 
 # Theme menu configuration
+# Override theme menu settings
+theme_config:
+  menu:
+    - page: home
+      directory: .
+      icon: fa-home
+    - page: archive
+      directory: archives/
+      icon: fa-archive
+    - page: about
+      directory: about.html
+      icon: fa-user
+    - page: services
+      directory: services.html
+      icon: fa-briefcase
+    - page: rss
+      directory: atom.xml
+      icon: fa-rss
+
+# Fallback menu configuration (simple format)
 menu:
   home: /
   archive: /archives/

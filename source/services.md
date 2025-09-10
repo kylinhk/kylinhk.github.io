@@ -2,6 +2,7 @@
 title: 我们的服务
 date: 2024-09-10
 layout: page
+permalink: /services.html
 ---
 
 ## 核心服务

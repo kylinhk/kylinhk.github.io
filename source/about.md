@@ -2,6 +2,7 @@
 title: 关于我们
 date: 2024-09-10
 layout: page
+permalink: /about.html
 ---
 
 ## 公司简介
