@@ -31,6 +31,23 @@ jobs:
         git config --global http.postBuffer 524288000
         git config --global core.longpaths true
 
+    - name: Debug Git Repository Status 🔍
+      run: |
+        echo "=== Git Status ==="
+        git status || echo "Git status failed"
+        echo "=== Git Remote Configuration ==="
+        git remote -v || echo "No remotes configured"
+        echo "=== Git Branches ==="
+        git branch -a || echo "Branch listing failed"
+        echo "=== Current Working Directory ==="
+        pwd && ls -la || echo "Directory listing failed"
+        echo "=== Git Log (Last 3 commits) ==="
+        git log --oneline -n 3 || echo "Git log failed"
+        echo "=== Environment Variables ==="
+        echo "GITHUB_WORKSPACE: $GITHUB_WORKSPACE"
+        echo "GITHUB_REPOSITORY: $GITHUB_REPOSITORY"
+        echo "GITHUB_REF: $GITHUB_REF"
+
     - name: Force Submodule Update 🔧
       run: |
         echo "=== Current Directory Permissions ==="
@@ -48,6 +65,23 @@ jobs:
         git submodule update --init --recursive --force --remote || echo "Update failed"
         echo "=== Final Submodule Status ==="
         git submodule status || echo "No submodules"
+        echo "=== Verify Theme Files ==="
+        if [ -d "themes/bluelake" ]; then
+          echo "Bluelake directory exists"
+          ls -la themes/bluelake/ || echo "Cannot list bluelake contents"
+          if [ -f "themes/bluelake/layout/layout.ejs" ]; then
+            echo "Main layout file found"
+          else
+            echo "WARNING: Main layout file missing"
+          fi
+          if [ -f "themes/bluelake/_config.yml" ]; then
+            echo "Theme config file found"
+          else
+            echo "WARNING: Theme config file missing"
+          fi
+        else
+          echo "ERROR: Bluelake directory does not exist"
+        fi
 
     - name: Setup Node.js 🏗️
       uses: actions/setup-node@v3
@@ -71,6 +105,17 @@ jobs:
         ls -la themes/bluelake/ || echo "Bluelake theme not found"
         echo "=== Submodule Status ==="
         git submodule status || echo "No submodules"
+
+    - name: Pre-Build Debug 🕰️
+      run: |
+        echo "=== Pre-Build Repository State ==="
+        git status --porcelain || echo "Git status porcelain failed"
+        echo "=== Submodule Status Before Build ==="
+        git submodule foreach --recursive 'echo "Submodule: $name at $(pwd)" && git status --short' || echo "Submodule foreach failed"
+        echo "=== Theme Directory Structure ==="
+        find themes/ -type f -name "*.ejs" | head -10 || echo "No EJS files found"
+        echo "=== Config Files Check ==="
+        ls -la _config.yml themes/bluelake/_config.yml 2>/dev/null || echo "Config files check failed"
 
     - name: Generate Static Site 🔧
       run: |
