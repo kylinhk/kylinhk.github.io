@@ -23,6 +23,12 @@ jobs:
         git submodule init
         git submodule update --recursive --remote
 
+    - name: Configure Git ⚙️
+      run: |
+        git config --global user.name "kylinhk"
+        git config --global user.email "kylinhk@example.com"
+        git config --global init.defaultBranch master
+
     - name: Setup Node.js 🏗️
       uses: actions/setup-node@v3
       with:
