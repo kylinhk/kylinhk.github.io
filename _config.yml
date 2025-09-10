@@ -1,0 +1,67 @@
+title: 香港麒麟科技有限公司
+description: 专注为海外企业提供进入中国大陆市场的抖音广告开户、投放及代运营服务
+baseurl: ""
+url: "https://kylinhk.github.io"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Author info
+author:
+  name: 香港麒麟科技有限公司
+  telegram: "@kylinhk"
+
+# Site settings
+timezone: Asia/Hong_Kong
+language: zh-CN
+locale: zh_CN
+
+# Pagination
+paginate: 5
+paginate_path: "/blog/page:num/"
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /:categories/:year/:month/:day/:title/
+
+# Defaults
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "香港麒麟科技"
+      show_excerpts: true
+
+# Contact info - 只保留Telegram联系方式
+telegram_url: "https://t.me/kylinhk"
+telegram_username: "@kylinhk"
+
+# Social links
+social_links:
+  telegram: "@kylinhk"
+
+# Header pages
+header_pages:
+  - about.md
+  - services.md
+  - blog.md
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor/bundle/
+  - vendor/cache/
+  - vendor/gems/
+  - vendor/ruby/

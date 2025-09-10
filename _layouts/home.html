@@ -1,0 +1,89 @@
+---
+layout: default
+---
+
+<!-- 首页横幅 -->
+<section class="hero-section">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">{{ site.title }}</h1>
+            <p class="hero-subtitle">{{ site.description }}</p>
+            <div class="hero-buttons">
+                <a href="{{ '/services/' | relative_url }}" class="btn btn-primary">
+                    <i class="fas fa-rocket"></i>
+                    了解服务
+                </a>
+                <a href="{{ site.telegram_url }}" class="btn btn-secondary" target="_blank">
+                    <i class="fab fa-telegram"></i>
+                    立即咨询
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新博客文章 -->
+<section class="blog-preview">
+    <div class="container">
+        <h2 class="section-title">最新动态</h2>
+        <div class="blog-grid">
+            {% for post in site.posts limit:3 %}
+            <article class="blog-card">
+                <div class="blog-card-content">
+                    <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                    <p class="blog-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+                    <div class="blog-meta">
+                        <time datetime="{{ post.date | date_to_xmlschema }}">
+                            {{ post.date | date: "%Y年%m月%d日" }}
+                        </time>
+                        {% if post.category %}
+                        <span class="blog-category">{{ post.category }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center">
+            <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline">
+                查看更多文章
+                <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- 核心服务概览 -->
+<section class="services-overview">
+    <div class="container">
+        <h2 class="section-title">核心服务</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-user-plus"></i>
+                </div>
+                <h3>抖音广告开户</h3>
+                <p>专业、合规的海外企业抖音广告账户开设服务，快速开启中国市场推广之路。</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3>广告投放与优化</h3>
+                <p>数据驱动的精准投放策略，持续优化广告效果，最大化投资回报率。</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h3>广告代运营</h3>
+                <p>全程托管式服务，从创意制作到数据分析，让您专注核心业务发展。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{{ content }}
