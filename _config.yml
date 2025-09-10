@@ -131,21 +131,21 @@ company:
   establishment_date: '2024年3月1日'
 
 # Theme menu configuration
-# Override theme menu settings
+# Override theme menu settings to add services.html and about.html to navigation
 theme_config:
   menu:
     - page: home
       directory: .
       icon: fa-home
-    - page: archive
-      directory: archives/
-      icon: fa-archive
     - page: about
       directory: about.html
       icon: fa-user
-    - page: services
+    - page: services  
       directory: services.html
       icon: fa-briefcase
+    - page: archive
+      directory: archives/
+      icon: fa-archive
     - page: rss
       directory: atom.xml
       icon: fa-rss
@@ -153,7 +153,11 @@ theme_config:
 # Fallback menu configuration (simple format)
 menu:
   home: /
-  archive: /archives/
   about: /about.html
   services: /services.html
+  archive: /archives/
   rss: /atom.xml
+
+# Custom language mapping for navigation
+language_custom:
+  services: 服务
