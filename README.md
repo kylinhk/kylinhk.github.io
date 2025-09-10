@@ -123,3 +123,5 @@ MIT License - 详见 [LICENSE](LICENSE) 文件
 ---
 
 *© 2024 香港麒麟科技有限公司 版权所有*
+
+<!-- 更新: 修复GitHub Actions子模块配置 -->
