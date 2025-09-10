@@ -27,11 +27,10 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: '18'
-        cache: 'npm'
 
     - name: Install Dependencies 📦
       run: |
-        npm ci
+        npm install
         npm install hexo-cli -g
 
     - name: Verify Installation 🔍
