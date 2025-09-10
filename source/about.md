@@ -1,8 +1,9 @@
 ---
 title: 关于我们
 date: 2024-09-10
-layout: page
+layout: post
 permalink: /about.html
+comments: false
 ---
 
 ## 公司简介

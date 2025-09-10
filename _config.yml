@@ -134,19 +134,19 @@ company:
 # Override theme menu settings to add services.html and about.html to navigation
 theme_config:
   menu:
-    - page: home
+    - page: 首页
       directory: .
       icon: fa-home
-    - page: about
+    - page: 关于
       directory: about.html
       icon: fa-user
-    - page: services  
+    - page: 服务  
       directory: services.html
       icon: fa-briefcase
-    - page: archive
+    - page: 归档
       directory: archives/
       icon: fa-archive
-    - page: rss
+    - page: 订阅
       directory: atom.xml
       icon: fa-rss
 

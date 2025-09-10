@@ -1,8 +1,9 @@
 ---
 title: 我们的服务
 date: 2024-09-10
-layout: page
+layout: post
 permalink: /services.html
+comments: false
 ---
 
 ## 核心服务
