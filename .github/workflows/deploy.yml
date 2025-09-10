@@ -12,10 +12,10 @@ jobs:
     
     steps:
     - name: Checkout 🛎️
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
-        submodules: true
+        submodules: recursive
         token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Setup Node.js 🏗️
@@ -26,8 +26,14 @@ jobs:
 
     - name: Install Dependencies 📦
       run: |
-        npm install
+        npm ci
         npm install hexo-cli -g
+
+    - name: Verify Installation 🔍
+      run: |
+        hexo version
+        ls -la themes/
+        ls -la themes/bluelake/ || echo "Bluelake theme not found"
 
     - name: Generate Static Site 🔧
       run: |
