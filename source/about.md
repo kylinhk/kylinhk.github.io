@@ -1,6 +1,6 @@
 ---
 title: 关于我们
-date: 2024-09-10
+date: 2025-09-10
 layout: post
 permalink: /about.html
 comments: false
