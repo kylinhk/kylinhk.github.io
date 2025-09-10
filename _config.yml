@@ -129,3 +129,11 @@ company:
   english_name: 'HONG KONG KYLIN TECHNOLOGY LIMITED'
   registration_number: '76259657'
   establishment_date: '2024年3月1日'
+
+# Theme menu configuration
+menu:
+  home: /
+  archive: /archives/
+  about: /about.html
+  services: /services.html
+  rss: /atom.xml
