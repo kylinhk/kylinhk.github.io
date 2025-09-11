@@ -114,7 +114,7 @@ npm run deploy
 
 ## 联系我们
 
-✈️ **Telegram**: [https://t.me/+85251400092](https://t.me/+85251400092)
+✈️ **Telegram**: [https://t.me/ouyang66666](https://t.me/ouyang66666)
 
 ## 许可证
 
