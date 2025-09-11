@@ -155,6 +155,8 @@ theme_config:
       url: https://www.neovistads.com/
     - title: 联系我们
       url: https://t.me/ouyang66666
+    - title: 抖音广告投放
+      url: https://www.neovistads.com/
 
 # Fallback menu configuration (simple format)
 menu:
