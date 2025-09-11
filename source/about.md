@@ -37,4 +37,4 @@ comments: false
 
 如果您有任何问题或需要我们的服务，欢迎随时联系：
 
-✈️ **Telegram**: [https://t.me/ouyang66666](https://t.me/ouyang66666)
+✈️ **Telegram**: [https://t.me/+85251400092](https://t.me/+85251400092)
